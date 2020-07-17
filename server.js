@@ -16,7 +16,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 //run when client connects
 
 io.on('connection', (socket) => {
-  console.log('New connection..');
+  //Welcome current user
+  socket.emit('message', 'Welcome to PingApp');
+
+  //Broadcast when a user connects
+  socket.broadcast.emit('message', 'A user has joined chat');
+
+  //Runs when client disconnects
+  socket.on('disconnect', () => {
+    io.emit('message', 'A user has left the chat');
+  });
+
+  // Listen for chatMessage
+  socket.on('chatMessage', (msg) => {
+    io.emit('message', msg);
+  });
 });
 
 const PORT = 3001 || process.env.PORT;
