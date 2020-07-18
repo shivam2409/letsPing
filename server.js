@@ -3,33 +3,40 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const { Socket } = require('dgram');
+const formatMessage = require('./utility/message');
 
 const app = express();
 
 //using server to listen port
 const server = http.createServer(app);
 const io = socketio(server);
-//Set static folder
 
+//Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+const botName = 'Jarvis';
 //run when client connects
 
 io.on('connection', (socket) => {
-  //Welcome current user
-  socket.emit('message', 'Welcome to PingApp');
+  socket.on('joinRoom', ({ username, room }) => {
+    //Welcome current user
+    socket.emit('message', formatMessage(botName, 'Welcome to PingApp'));
 
-  //Broadcast when a user connects
-  socket.broadcast.emit('message', 'A user has joined chat');
-
-  //Runs when client disconnects
-  socket.on('disconnect', () => {
-    io.emit('message', 'A user has left the chat');
+    //Broadcast when a user connects
+    socket.broadcast.emit(
+      'message',
+      formatMessage(botName, 'A user has joined chat')
+    );
   });
 
   // Listen for chatMessage
   socket.on('chatMessage', (msg) => {
-    io.emit('message', msg);
+    io.emit('message', formatMessage('USER', msg));
+  });
+
+  //Runs when client disconnects
+  socket.on('disconnect', () => {
+    io.emit('message', formatMessage(botName, 'A user has left the chat'));
   });
 });
 
