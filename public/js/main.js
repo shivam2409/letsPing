@@ -1,4 +1,3 @@
-const Users = require('../../utility/Users');
 const socket = io();
 const chatFrom = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
@@ -63,3 +62,7 @@ function outputRoomName(room) {
 }
 
 //Add Users to DOM
+function outputUsers(users) {
+  userList.innerHTML = `
+  ${users.map((user) => `<li>${user.username}</li>`).join('')}`;
+}
