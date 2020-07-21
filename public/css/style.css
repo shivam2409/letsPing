@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 :root {
-  --dark-color-a: #667aff;
-  --dark-color-b: #7386ff;
+  --dark-color-a: #b22222;
+  --dark-color-b: #8e069b;
   --light-color: #e6e9ff;
   --success-color: #5cb85c;
-  --error-color: #d9534f;
+  --error-color: #806d06;
 }
 
 * {
@@ -15,9 +15,16 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: monospace;
+  height: 100vh;
   font-size: 16px;
-  background: var(--light-color);
+  background: rgb(240, 51, 22);
+  background: linear-gradient(
+    175deg,
+    rgba(240, 51, 22, 1) 0%,
+    rgba(2, 0, 36, 1) 1%,
+    rgba(0, 212, 255, 1) 100%
+  );
   margin: 20px;
 }
 
@@ -32,8 +39,8 @@ a {
 .btn {
   cursor: pointer;
   padding: 5px 15px;
-  background: var(--light-color);
-  color: var(--dark-color-a);
+  background: var(--success-color);
+  color: whitesmoke;
   border: 0;
   font-size: 17px;
 }
@@ -50,8 +57,7 @@ a {
 .chat-header {
   background: var(--dark-color-a);
   color: #fff;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+
   padding: 15px;
   display: flex;
   align-items: center;
@@ -64,7 +70,7 @@ a {
 }
 
 .chat-sidebar {
-  background: var(--dark-color-b);
+  background: var(--error-color);
   color: #fff;
   padding: 20px 20px 60px;
   overflow-y: scroll;
@@ -72,7 +78,7 @@ a {
 
 .chat-sidebar h2 {
   font-size: 20px;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--success-color);
   padding: 10px;
   margin-bottom: 20px;
 }
